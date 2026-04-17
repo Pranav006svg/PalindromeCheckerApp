@@ -1,30 +1,44 @@
 /**
  * ============================================================
- * MAIN CLASS - UseCase12PalindromeCheckerApp
+ * MAIN CLASS - UseCase13PalindromeCheckerApp
  * ============================================================
  *
- * Use Case 12: Strategy Pattern for Palindrome Algorithms
+ * Use Case 13: Performance Comparison
  *
  * Description:
- * Demonstrates dynamic selection of palindrome algorithms
- * using Strategy Design Pattern.
+ * This class measures and compares the execution
+ * performance of palindrome validation algorithms.
+ *
+ * It:
+ * - Uses a palindrome strategy implementation
+ * - Captures start and end time
+ * - Calculates execution duration
+ * - Displays benchmarking results
  *
  * @author Developer
- * @version 12.0
+ * @version 13.0
  */
 
-public class UseCase12PalindromeCheckerApp {
+public class UseCase13PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
+        //  input
         String input = "level";
 
         PalindromeStrategy strategy = new StackStrategy();
 
+        long startTime = System.nanoTime();
+
         boolean result = strategy.check(input);
+
+        long endTime = System.nanoTime();
+
+        long duration = endTime - startTime;
 
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + result);
+        System.out.println("Execution Time : " + duration + " ns");
     }
 }
 
@@ -38,39 +52,14 @@ class StackStrategy implements PalindromeStrategy {
     @Override
     public boolean check(String input) {
 
-        // Create stack
         java.util.Stack<Character> stack = new java.util.Stack<>();
 
-        // Push characters
         for (char c : input.toCharArray()) {
             stack.push(c);
         }
 
-        // Compare by popping
         for (char c : input.toCharArray()) {
             if (c != stack.pop()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-}
-
-
-class DequeStrategy implements PalindromeStrategy {
-
-    @Override
-    public boolean check(String input) {
-
-        java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
-
-        for (char c : input.toCharArray()) {
-            deque.addLast(c);
-        }
-
-        while (deque.size() > 1) {
-            if (!deque.removeFirst().equals(deque.removeLast())) {
                 return false;
             }
         }
